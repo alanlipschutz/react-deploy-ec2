@@ -17,5 +17,4 @@ jobs:
        aws-secret-access-key:  VDlmz1lKsu++9Bu9T/m+rlEEOXZnlzDJfPO1BMQV
        aws-region: eu-north-1
        instance-ids: i-06c081bd7e0e243c1
-          comment: Deploy the master branch
           command: /bin/sh ./deploy.sh
