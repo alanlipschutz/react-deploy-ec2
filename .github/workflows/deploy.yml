@@ -25,5 +25,5 @@ jobs:
           echo "))))))))))))))))))))))))))))))))))))))))"
           ssh -o StrictHostKeyChecking=no -i private.pem ubuntu@16.171.61.147 '
           cd /home/ubuntu/react-deploy-ec2 &&
-          git pull '
+          git pull --rebase origin main '
           
