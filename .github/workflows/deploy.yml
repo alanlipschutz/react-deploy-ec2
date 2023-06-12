@@ -24,6 +24,6 @@ jobs:
           chmod 400 private.pem
           echo "))))))))))))))))))))))))))))))))))))))))"
           ssh -o StrictHostKeyChecking=no -i private.pem '
-          cd /home/ubuntu/react-deploy-ec2
+          cd /home/ubuntu/react-deploy-ec2 &&
           git pull '
           
