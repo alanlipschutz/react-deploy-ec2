@@ -22,8 +22,8 @@ jobs:
 
       - name: Execute commands on EC2 instance
         run: |
-          aws ec2-instance-connect send-command \
-            --instance-id ${{ secrets.INSTANCE_ID }} \
+          aws ssm send-command \
             --document-name "AWS-RunShellScript" \
             --comment "Deploy the main branch" \
+            --instance-ids ${{ secrets.INSTANCE_ID }} \
             --parameters commands="/bin/sh ./deploy.sh"
