@@ -30,9 +30,7 @@ jobs:
         aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws configure set default.region ${{ secrets.AWS_REGION }}
         aws ec2 describe-instances --instance-ids ${{ secrets.EC2_INSTANCE_ID }}
-
-    # Copy files to EC2 instance
+        # Copy files to EC2 instance
         scp -i /c/Users/54116/AlanLipschutz/marginx_ai/react-example-instance.pem -r ./build ec2-user@16.171.61.147:~/react-app
-
-    # SSH into EC2 instance and restart the application
+        # SSH into EC2 instance and restart the application
         ssh -i /c/Users/54116/AlanLipschutz/marginx_ai/react-example-instance ec2-user@16.171.61.147 "pm2 restart react-deploy-ec2"
