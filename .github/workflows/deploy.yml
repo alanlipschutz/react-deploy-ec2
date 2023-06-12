@@ -1,19 +1,21 @@
 on:
-    push:
-        branches: [main]
+  push:
+    branches:
+      - main
+
 jobs:
-    start:
-     runs-on: ubuntu-latest 
+  start:
+    runs-on: ubuntu-latest
 
-     steps:
-     - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-     - name: executing remote ssh commands using ssh key
-       uses: appleboy/ssh-action@main
-       with:
-       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID  }}
-       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
-       aws-region: eu-north-1
-       instance-ids: ${{ secrets.INSTANCE_ID  }}
-          comment: Deploy the main branch
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+          instance-ids: ${{ secrets.INSTANCE_ID }}
           command: /bin/sh ./deploy.sh
+          comment: Deploy the main branch
