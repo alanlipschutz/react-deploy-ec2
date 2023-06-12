@@ -1,22 +1,31 @@
+name: Deploy to EC2
+
 on:
   push:
     branches:
       - main
 
 jobs:
-  start:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: executing remote ssh commands using ssh key
-        # uses: appleboy/ssh-action@master
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-north-1
-          instance-ids: ${{ secrets.INSTANCE_ID }}
-          command: /bin/sh ./deploy.sh
-          comment: Deploy the main branch
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to EC2
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region eu-north-1
+
+          aws ec2 describe-instances --instance-ids ${{ secrets.INSTANCE_ID }} --query "Reservations[0].Instances[0].PublicIpAddress" --output text > ip.txt
+          scp -i react-example-instance.pem -r ./build ec2-user@$(cat ip.txt):/home/ec2-user/
+
+      - name: Restart server
+        run: pm2 restart example
