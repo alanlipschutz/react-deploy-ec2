@@ -30,8 +30,3 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_REGION }}
           aws ec2 describe-instances --instance-ids ${{ secrets.INSTANCE_ID }}
-          # Copy files to EC2 instance
-          scp -o StrictHostKeyChecking=no -r ./build ec2-16-171-61-147.eu-north-1.compute.amazonaws.com:~/react-deploy-ec2
-          # SSH into EC2 instance and restart the application
-          ssh -o StrictHostKeyChecking=no ec2-16-171-61-147.eu-north-1.compute.amazonaws.com "pm2 restart react-deploy-ec2"
-
