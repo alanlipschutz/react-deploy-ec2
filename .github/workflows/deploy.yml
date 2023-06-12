@@ -18,6 +18,6 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_REGION }}
-          ${{secrets.PRIVATE_KEY}}>>private.pem
+          echo ${{secrets.PRIVATE_KEY}}>>private.pem
           scp -o StrictHostKeyChecking=no -i private.pem ./* ubuntu@16.171.61.147:/home/ubuntu/react-deploy-ec2/
 
