@@ -13,8 +13,9 @@ jobs:
      - name: executing remote ssh commands using ssh key
        uses: appleboy/ssh-action@master
        with:
-       aws-access-key-id:  "aws-access-key-id"
-       aws-secret-access-key:  "aws-secret-access-key"
-       aws-region: aws-region
-       instance-ids: instace-ids
+       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID  }}
+       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
+       aws-region: eu-west-1
+       instance-ids: ${{ secrets.INSTANCE_ID  }}
+          comment: Deploy the main branch
           command: /bin/sh ./deploy.sh
