@@ -25,5 +25,5 @@ jobs:
           echo "))))))))))))))))))))))))))))))))))))"
           # Copy files to EC2 instance
           ${{secrets.PRIVATE_KEY}}  >> private.pem
-          scp -o StrictHostKeyChecking=no -i private.pem ./* ec2-user@16.171.61.147: /home/ubuntu/react-deploy-ec2/
+          scp -o StrictHostKeyChecking=no -i private.pem ./* ubuntu@16.171.61.147:/home/ubuntu/react-deploy-ec2/
           # SSH into EC2 instance and restart the application
