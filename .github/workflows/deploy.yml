@@ -27,3 +27,4 @@ jobs:
           ${{secrets.PRIVATE_KEY}}  >> private.pem
           scp -o StrictHostKeyChecking=no -i private.pem ./* ubuntu@16.171.61.147:/home/ubuntu/react-deploy-ec2/
           # SSH into EC2 instance and restart the application
+
